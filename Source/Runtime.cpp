@@ -100,7 +100,7 @@ void Runtime::debugOutput(const std::string& opcode, System::Byte operand) {
 			}
 		}
 
-		std::printf("\n\nI = #%02X, A = #%02X, M = #%02X, E = #%X\n", I, A, M, (int)E);
+		std::printf("\n\nI = #%02X, A = #%02X, M = #%02X, E = #%X\n", I - 1, A, M, (int)E);
 		std::printf("%s #%X\n", opcode.c_str(), operand);
 
 		System::Byte rel = operand;
