@@ -217,3 +217,6 @@ After which it asks the user which line they want to goto. If the user doesn't e
 
 ## The SNAK Game
 Finally, just a couple of comments about the game. For this game I needed an array as large as the play area to keep track of certain information. This is the reason the play area is so small. Any larger and you would notice weird artifacts popping up in the top right of the screen when you move to the bottom right as the data chunk is right before the video memory. I took this as an advantage however and "tried" writing snake at the bottom by hardcoding it to show off the possibility of a 16x16 resolution.
+
+## Known Issues
+There is a problem where the assembler sometimes won't work properly if the first line is a label (for some reason), to fix this simply add a newline before the first label. I don't know why this happens, if someone finds and fixes this issue via a pull request I will be very grateful.

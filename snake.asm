@@ -1,3 +1,4 @@
+
 page0:
 	color0:
 		LMU ^init
