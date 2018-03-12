@@ -91,7 +91,7 @@ Letting `x` be the 4-bit operand and `n` being the memory array, all the opcodes
 	91-97 SHL: A = A << x (SHift Left)
 	98 HLT: waits until screen is drawn (HaLT)
 	99-9F SHR: A = A >> (x - 8) (SHift Right)
-A_ CMP: if A == n[M + x], E = 1, else E == 9 (CoMPare)
+A_ CMP: if A == n[M + x], E = 1, else E == 0 (CoMPare)
 B_ BEQ: if E == 1, I = I + x (sign extended) (Branch if EQual)
 
 C_ LDM: M = n[M + x] (LoaD M)
