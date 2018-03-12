@@ -216,7 +216,32 @@ Everytime the debugger stops, it will show a dump of all 256 bytes of memory, th
 After which it asks the user which line they want to goto. If the user doesn't enter anything and just presses enter, it will stop at the next instruction, otherwise it will keep running until it hits the address provided.
 
 ## The SNAK Game
-Finally, just a couple of comments about the game. For this game I needed an array as large as the play area to keep track of certain information. This is the reason the play area is so small. Any larger and you would notice weird artifacts popping up in the top right of the screen when you move to the bottom right as the data chunk is right before the video memory. I took this as an advantage however and "tried" writing snake at the bottom by hardcoding it to show off the possibility of a 16x16 resolution.
+### Why is the play area so small?
+For this game I needed an array as large as the play area to keep track of certain information. This is the reason the play area is so small. Any larger and you would notice weird artifacts popping up in the top right of the screen when you move to the bottom right as the data chunk is right before the video memory. I took this as an advantage however and "tried" writing snake at the bottom by hardcoding it to show off the possibility of a 16x16 resolution.
+
+### Why is it so slow?
+Because of the small play area, moving 10 times per second was way to fast, so there is two `HLT`'s per frame to lower it down to 5 times per second.
+
+### Why does the game freeze when I die?
+You try and code snake in 256 bytes. It's all I could fit in for ending code. It literally just jumps to a loop that continuosly calls `HLT`.
+
+### Why didn't you restart the game instead?
+Because the initialization code is overwritten during gameplay to save on memory.
+
+### Why do the apples always spawn in the same location?
+My initial plan was to have a special input byte that always produced a random value. However, this felt a bit cheaty to me. Instead I forced myself to try and fit in an RNG algorithm. However usually RNG algorithms are seeded by external factors to keep them unique (for example, date and time). I considered possibly using input as a seed but, well, I ran out of bytes (no surprises here) and I didn't want to make the play area even smaller.
+
+### Now that you have brought it up, what RNG algorithm do you use?
+Thanks for asking imaginary interviewer, as if people would be interested enough in my projects to ask such questions. It pretty much follows this algorithm (which is a modification of a hashing algorithm I invented but replaced the input bytes with a constant seed):
+```
+r = 0
+function rand
+	r = r ^ seed
+	r = ((r << 5) | (r >> 3)) - r
+	return r
+end
+```
+The seed used was `0x15`. If the result is already taken up by something, it will add 15 and repeat.
 
 ## Known Issues
 There is a problem where the assembler sometimes won't work properly if the first line is a label (for some reason), to fix this simply add a newline before the first label. I don't know why this happens, if someone finds and fixes this issue via a pull request I will be very grateful.

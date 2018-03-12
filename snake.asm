@@ -125,7 +125,7 @@ spawn_apple:
 		CMP p1_zero
 		LDA temp
 		BEQ ~spawn_apple.zero
-			ADI #05
+			ADI #0F
 			JLM *spawn_apple.loop
 		spawn_apple.zero:
 			AND rand_mask
