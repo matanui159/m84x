@@ -87,19 +87,19 @@ Letting `x` be the 4-bit operand and `n` being the memory array, all the opcodes
 
 8_ XOR: A = A ^ n[M + x] (eXclusive OR)
 9_ EXT: depends on operand: (EXTended)
-	90 SWP: swap A and M
-	91-97 SHL: A = A << x
-	98 HLT: waits until screen is drawn
-	99-9F SHR: A = A >> (x - 8)
-A_ CMP: sets E to 1 if A == n[M + x], 0 otherwise (CoMPare)
+	90 SWP: swap A and M (SWaP)
+	91-97 SHL: A = A << x (SHift Left)
+	98 HLT: waits until screen is drawn (HaLT)
+	99-9F SHR: A = A >> (x - 8) (SHift Right)
+A_ CMP: if A == n[M + x], E = 1, else E == 9 (CoMPare)
 B_ BEQ: if E == 1, I = I + x (sign extended) (Branch if EQual)
 
 C_ LDM: M = n[M + x] (LoaD M)
 D_ STM: n[x] = M (STore M)
 E_ LMU: M = x << 4 (Load M Upper immediate)
-F_ JLM: M = M + x, then swaps the value of M and I (Jump and Link M)
+F_ JLM: M = M + x, then swap I and M (Jump and Link M)
 ```
-
+The STM opcode is not a typo. It is the only opcode that doesn't M-index its operand. Otherwise the M value would've had to be within 16 bytes of where you wanted to store it. This also makes the zero page unique.
 
 ## The Assembly Language
 ### Numbers
@@ -162,7 +162,7 @@ The first will insert `0x0A`, and the second will insert `0x5A`.
 
 ## The Runtime
 ### Visuals
-The screen is 16x16 and supports 4 colors out of a palette of 16 (RGBI). The video memory starts at address `C0` and takes up 64 bytes. Each byte represents a 2x2 block. This allows one to program easily using an 8x8 display by just filling up the 2x2 block with all the same color in a single command. However, if one wanted to, they could use extra instructions to use the full 16x16 display.
+The screen is 16x16 and supports 4 colors out of a palette of 16 (RGBI). The video memory starts at address `C0` and takes up 64 bytes. Each byte represents a 2x2 block. This allows someone to program easily using an 8x8 display by just filling up the 2x2 block with all the same color in a single command. However, if someone wanted to, they could use extra instructions to use the full 16x16 display.
 
 The first two bits of the byte are the top left pixel of the block, the next two bits are the top right block, the next are the bottom left and the final 2 are the bottom right. The colors 0 and 1 are stored in the upper and lower nybble of address `00` respectively, with the colors 2 and 3 in address `01`. The supported colors are:
 ```
@@ -211,7 +211,7 @@ The code starts at address `00`. For this reason it is recommended to insert a `
 The `HLT` instruction will poll events, draw the frame, and wait up to a tenth of a second. For this reason, the runtime (and by extension the SNAK game) may freeze if the code doesn't reach another `HLT` instruction.
 
 ## The Debugger
-Everytime the debugger stops, it will show a dump of all 256 bytes of memory, the current register values, and the decompiled line it's about to run. It also shows certain predictions of what this value could have been along with the values in memory they point to.
+Everytime the debugger stops, it will show a dump of all 256 bytes of memory, the current register values, and the decompiled line it's about to run. It also shows certain predictions of what this value could represent along with the values in memory they point to.
 
 After which it asks the user which line they want to goto. If the user doesn't enter anything and just presses enter, it will stop at the next instruction, otherwise it will keep running until it hits the address provided.
 
@@ -241,7 +241,7 @@ function rand
 	return r
 end
 ```
-The seed used was `0x15`. If the result is already taken up by something, it will add 15 and repeat.
+The seed used was `0x15`. If the result is already taken up by something, it will add `0x0F` and repeat.
 
 ## Known Issues
 There is a problem where the assembler sometimes won't work properly if the first line is a label (for some reason), to fix this simply add a newline before the first label. I don't know why this happens, if someone finds and fixes this issue via a pull request I will be very grateful.
