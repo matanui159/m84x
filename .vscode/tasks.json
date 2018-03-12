@@ -1,0 +1,32 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "run",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"type": "shell",
+			"command": "Release/m84x.exe",
+			"args": [
+				"ar",
+				"snake.asm",
+				"snake.bin"
+			],
+			"problemMatcher": []
+		},
+		{
+			"label": "debug",
+			"group": "build",
+			"type": "shell",
+			"command": "Release/m84x.exe",
+			"args": [
+				"ard",
+				"snake.asm",
+				"snake.bin"
+			],
+			"problemMatcher": []
+		}
+	]
+}
