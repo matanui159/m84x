@@ -34,13 +34,13 @@ This is the repository for the assembler/emulator (I made it one program) and th
 
 ## Building the Project
 ### M84X
-Sorry I didn't provide any build files, the IDE I use doesn't use them. However, it should work find with any compiler. I used C++11, and it has been tested with MinGW-W64. It requires SFML Graphics, Window and System.
+Sorry I didn't provide any build files, the IDE I use doesn't use them. However, it should work fine with any compiler. I used C++11, and it has been tested with MinGW-W64. It requires SFML Graphics, Window and System.
 
 ### SNAK
 Once M84X has been compiled, just run `m84x ao snake.asm snake.bin` to compile SNAK.
 
 ## How to use the M84X software
-The way the program handles flags is a bit weird. The first argument is a list of flags where each flag is a letter that are not preceded by anything. Then any flag that requires extra arguments will read the remaining arguments in order. For example, if you ran:
+The way the program handles flags is a bit weird. The first argument is a list of flags where each flag is a letter that is not preceded by anything. Then any flag that requires extra arguments will read the remaining arguments in order. For example, if you ran:
 ```
 m84x ao snake.asm snake.bin
 ```
