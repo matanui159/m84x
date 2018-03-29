@@ -21,8 +21,8 @@ static void help() {
 	std::cout << "\telse, it will be the input file suffixed with .bin" << std::endl;
 	std::cout << std::endl;
 	std::cout << "example: m84x ard input.asm output.bin" << std::endl;
-	std::cout << "\tthis assembles input.asm to output.bin" << std::endl;
-	std::cout << "\tthen runs output.bin" << std::endl;
+	std::cout << "\tthis assembles input.asm to output.bin," << std::endl;
+	std::cout << "\tthen runs output.bin," << std::endl;
 	std::cout << "\twith debug enabled" << std::endl;
 	std::cout << std::endl;
 }
